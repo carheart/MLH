@@ -3,10 +3,10 @@
  "language": "python",
  "author": "etcipnja",
  "description": "Mother's little helper to automate routine operations on multiple plants at once",
- "version": "2.4.19",
+ "version": "2.4.20",
  "min_os_version_major": 6,
  "url": "https://raw.githubusercontent.com/carheart/MLH/master/MLH/manifest.json",
- "zip": "https://github.com/carheart/MLH/archive/master.zip",
+ "zip": "https://raw.githubusercontent.com/carheart/MLH/master/MLH/MLH.ZIP",
   "executable": "python",
  "args": ["MLH-master/MLH/main.py"],
  "config": [
