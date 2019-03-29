@@ -6,7 +6,7 @@ def invb(inverse, expr):
     else: return not expr
 
 
-class MLH2(Farmware):
+class MLH(Farmware):
     def __init__(self):
         Farmware.__init__(self,((__file__.split(os.sep))[len(__file__.split(os.sep)) - 3]).replace('-master', '').replace('-dev',''))
         self.chain_sequence = None
@@ -24,7 +24,7 @@ class MLH2(Farmware):
         self.big_rain=20        #20mm is a big rain (cancells watering today, tomorrow and day after tomorrow)
 
 
-        super(MLH2,self).load_config()
+        super(MLH,self).load_config()
         self.get_arg('action'       , "test", str)
         self.get_arg('pointname'    , '*', str)
         self.get_arg('default_z'    , 0, int)
@@ -32,7 +32,7 @@ class MLH2(Farmware):
         self.get_arg('save_meta'    , None,list)
         self.get_arg('init'         , None, str)
         self.get_arg('before'       , None, str)
-        self.get_arg('after'        , 'Water [MLH2]', str)
+        self.get_arg('after'        , 'Water [MLH]', str)
         self.get_arg('end'          , None, str)
 
         self.args['pointname']=self.args['pointname'].lower().split(',')
@@ -289,7 +289,7 @@ class MLH2(Farmware):
         #check if we need to enable iWatering
         iw = False
         if self.args['after'] != None and self.args['before'] == None:
-            if all(x in self.args['after']['name'].lower() for x in ['mlh2', 'water']):
+            if all(x in self.args['after']['name'].lower() for x in ['mlh', 'water']):
                 self.log("iWatering mode is engaged", 'warn')
                 iw = True
 
@@ -334,7 +334,7 @@ class MLH2(Farmware):
 
         if iw and not skip:
             try:
-                special = next(i for i in self.sequences() if all(x in i['name'].lower() for x in ['mlh2', 'water', plants[0]['name'].lower()]))
+                special = next(i for i in self.sequences() if all(x in i['name'].lower() for x in ['mlh', 'water', plants[0]['name'].lower()]))
             except:
                 special=None
 
@@ -361,8 +361,7 @@ class MLH2(Farmware):
                 if self.args['before']!=None or self.args['after']!=None:
                         if not skip:
                             location={'x': plant['x'], 'y': plant['y'], 'z': travel_height}
-                            ccfoo = int(self.head['z'])
-                            if ccfoo < travel_height:
+                            if int(self.head['z']) < travel_height:
                                 self.move_absolute({'x': self.head['x'], 'y': self.head['y'], 'z': location['z']},message=None)
                             else:
                                 self.move_absolute({'x': location['x'], 'y': location['y'], 'z': self.head['z']}, message=None)
@@ -390,7 +389,7 @@ class MLH2(Farmware):
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
 
-    app = MLH2()
+    app = MLH()
     try:
         app.load_config()
         app.log(app.farmware_url)
