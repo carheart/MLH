@@ -361,7 +361,8 @@ class MLH(Farmware):
                 if self.args['before']!=None or self.args['after']!=None:
                         if not skip:
                             location={'x': plant['x'], 'y': plant['y'], 'z': travel_height}
-                            if int(self.head['z']) < travel_height:
+                            ccfoo = int(self.head['z'])
+                            if ccfoo < travel_height:
                                 self.move_absolute({'x': self.head['x'], 'y': self.head['y'], 'z': location['z']},message=None)
                             else:
                                 self.move_absolute({'x': location['x'], 'y': location['y'], 'z': self.head['z']}, message=None)
